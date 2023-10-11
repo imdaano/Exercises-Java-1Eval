@@ -17,43 +17,80 @@ public class Principal {
         // 4. Consultar saldo
         // 0. Salir
         // Escoja una opción:
+        do {
+            // Escribir menu:
+            menuOpciones();
+            // Pedir opción, leerla, almacenarla
+            int opcion = leerOpcion();
 
-        // Escribir menu:
-        menuOpciones();
-        // Pedir opción, leerla, almacenarla
-        int opcion = leerOpcion();
+            switch (opcion){
+                case 0:
+                    System.out.println("Hasta la próxima.");
+                    System.exit(0);
+                case 1:
+                    //Enseñar submenu
+                    submenuCuenta();
+                    //Pedir opción
+                    int opcion2 = leerOpcion();
+                    if (opcion2 == 1) {
+                        crearCuenta(CUENTA_NORMAL);
+                    } else if (opcion2 == 2) {
+                        crearCuenta(CUENTA_PREMIUM);
+                    } else if (opcion2 == 0) {
+                        // Volver al menú principal
+                    } else {
+                        // Mostrar mensaje de error
+                        System.out.println("Opción no válida");
+                    }
+                    break;
 
-        switch (opcion){
-            case 0:
-                System.out.println("Hasta la próxima.");
-                System.exit(0);
-            case 1:
-                //Enseñar submenu
-                submenuCuenta();
-                //Pedir opción
-                int opcion2 = leerOpcion();
-                if (opcion2 == 1) {
-                    crearCuenta(CUENTA_NORMAL);
-                } else if (opcion2 == 2) {
-                    crearCuenta(CUENTA_PREMIUM);
-                } else if (opcion2 == 0) {
-                    // Volver al menú principal
-                } else {
-                    // Mostrar mensaje de error
+                case 2:
+                    ingresarDinero();
+                    break;
+
+                case 3:
+                // completar caso 3
+                    retirarDinero();
+                    break;
+
+                case 4:
+                    mostrarSaldo();
+                    break;
+                    // Si es otra opción
+                default:
+                    // Mostrar error
                     System.out.println("Opción no válida");
-                }
-                break;
-            case 2:
-                ingresarDinero();
-                break;
-            case 3:
-// completar caso 3
+                    break;
+            }
+
+        }while (true);
+    }
+
+    private static void retirarDinero() {
+        // Pedir cantidad
+        pedirCantidad();
+        // Leer cantidad y almacenarla
+        double cantidad = leerDouble();
+        // Si la cantidad es positiva
+        if (cantidad > 0) {
+            // Si es cuenta normal y no hay suficiente saldo
+            if (tipoCuenta == CUENTA_NORMAL && saldoCuenta < cantidad) {
+                // Mostrar mensaje de error
+                System.out.println("Las cuentas normales no pueden tener saldo negativo");
+            }
+            // En otro caso
+            else {
+                // Restar cantidad al saldo
+                saldoCuenta -= cantidad;
+                // Mostrar saldo
+                mostrarSaldo();
+            }
         }
-
-
-
-
-
+        // Si no lo es
+        else {
+            // Mostrar error
+            System.out.println("La cantidad a retirar debe ser positiva");
+        }
     }
 
     private static void ingresarDinero() {
@@ -81,15 +118,15 @@ public class Principal {
         // Si hay cuenta activa
         if (tipoCuenta != SIN_CUENTA){
             // Escribir saldo
-            System.out.println("El saldo de la cuenta es \" + String.format(\"%.2f\", saldoCuenta) + \" €\"");
+            System.out.println("El saldo de la cuenta es " + String.format("%.2f", saldoCuenta) + " €.");
 
         // Si no hay
         } else {
+            // Mostrar error
+        System.out.println("No hay cuenta activa");
 
         }
 
-            // Mostrar error
-        System.out.println("No hay cuenta activa");
 
     }
 
