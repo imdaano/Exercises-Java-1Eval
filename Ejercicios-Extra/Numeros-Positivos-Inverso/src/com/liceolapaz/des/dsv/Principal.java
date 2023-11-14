@@ -7,7 +7,7 @@ public class Principal {
         // Pedir los números
         pedirNumeros();
         // Variable para almacenar números
-        int[] numeros = new int[10];
+        int[] numeros = new int[10]; // se le pone 10 porque es el límite max del array
         // Variable para contar números almacenados
         int numerosAlmacenados = 0; // se crea variable inicializada en 0 para ir almacenando los numeros
         while (true) {
